@@ -34,20 +34,20 @@ async function callLangChain(question: string) {
   docs = await vectorStore.similaritySearch(question)
 
   console.log("Load model...")
-  console.log("Use HF model...")
-  const model = new HuggingFaceInference({
-    model: "google/flan-t5-xxl",
-    apiKey: process.env.HUGGINGFACE_API_KEY,
-    temperature: 0.5,
-    maxRetries: 1,
-  });
-  console.log("Use OpenAI model...")
-  // const model = new OpenAI({
-  //   modelName: "gpt-3.5-turbo",
+  // console.log("Use HF model...")
+  // const model = new HuggingFaceInference({
+  //   model: "google/flan-t5-xxl",
+  //   apiKey: process.env.HUGGINGFACE_API_KEY,
   //   temperature: 0.5,
-  //   openAIApiKey: process.env.OPENAI_API_KEY,
-  //   maxRetries: 1,  // 재시도 횟수. 기본값 7.
-  // })
+  //   maxRetries: 1,
+  // });
+  console.log("Use OpenAI model...")
+  const model = new OpenAI({
+    modelName: "gpt-3.5-turbo",
+    temperature: 0.5,
+    openAIApiKey: process.env.OPENAI_API_KEY,
+    maxRetries: 1,  // 재시도 횟수. 기본값 7.
+  })
 
   // console.log("Create prompt/query...");
   // const template = ""

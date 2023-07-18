@@ -1,0 +1,115 @@
+No,product,category,sub_category,keywords,related_question,question,answer,asked_date,answer_date
+1,Google Maps Platform,common,common,캐싱,,캐싱 가능한 데이터는 무엇인가요?,"Google Maps API에서 캐싱 가능한 데이터에는  PlaceID가 있습니다. 하지만 지도 이미지 등은 Google Maps 정책 상 캐싱이 불가능 합니다.
+Google Maps API에서 제공되는 각각 데이터에 대해 캐싱 가능한지 여부는 TOS(Terms of Service) 해석 권한이 없어 명확하게 알기가 힘듭니다.
+
+좀 더 자세한 내용은 이 문서를 참고하세요.",,
+2,Google Maps Platform,console,common,api key,,API 등록 및 Key 발급은 어디서 하나요?,"Google Maps API 등록과 API Key 발급은 클라우드 콘솔을 통해 할 수 있습니다.
+콘솔 사용자 등록을 안 하셨다면 SPH를 통해서 등록을 하실 수 있습니다.
+
+콘솔에서 API 설정 및 key 발급은 물론 각 API key별로 제약사항도 설정할 수 있습니다.",,
+3,Google Maps Platform,common,common,"채널 아이디, 서브 프로젝트, channel id, sub project, 사용량",,서비스별로 사용량을 분리하고 싶어요.,"구글맵을 사용하는 서비스별로 사용량을 분리해서 측정하는 방법에는 채널 아이디와 서브 프로젝트 두 가지 방법이 있습니다. 그 중, 서브 프로젝트를 서비스별로 사용량을 분리하는 것을 추천드립니다.
+
+1. 채널 아이디 사용
+구글 맵 사용시 채널 아이디 파라미터를 사용해 다른 구글맵 사용량과 분리할 수 있습니다.
+채널아이디는 0부터 넣을 수 있으며 채널아이디 사용 예는 아래와 같습니다.
+
+```
+https://maps.googleapis.com/maps/api/js?key=${YOUR_API_KEY}&channel=0
+```
+
+어느 서비스에서 어떤 채널 아이디를 사용하는지 매핑한 데이터를 관리해야 할 필요가 있습니다.
+채널아이디는 모든 API에서 사용가능한 것은 아닙니다. 아래는 채널아이디를 사용할 수 있는 API 목록입니다.
+- Maps JavaScript API
+- Maps Static API
+- Street View Static API
+- Google Maps Platform web services
+
+Geolocation API, Places API, Roads API, Maps Mobile SDKs는 채널 아이디 사용이 불가합니다.
+Maps JavaScript API를 이용했다 하더라도 '-Per session'에 대해서는 채널아이디 파라미터 값이 측정되지 않아 사용량 분리가 불가합니다.
+채널 아이디에 대한 추가 내용은 이 문서를 참고하세요.
+
+2. 서브 프로젝트 사용
+각 서비스 별로 별도의 구글맵 프로젝트를 생성해 사용하신다면 채널아이디를 사용할 수 없는 API들에 대해서도 서비스별로 사용량 분리가 가능합니다.
+각 서비스들의 구글맵 프로젝트는 하나의 결제 계정에 묶여 결제 관리를 한꺼번에 할 수 있습니다.
+서브 프로젝트를 통한 사용량 분리를 원하신다면 helper@sphinfo.co.kr을 통해 문의 부탁드립니다.",,
+4,Google Maps Platform,common,common,"사용량, 비용",,사용량 조회는 어디서 하나요?,"SPH에서는 고객분들이 사용량 조회를 간편하게 할 수 있도록 별도의 서비스인 GMP(Google Maps Platform) Usage Report를 운영하고 있습니다.
+GMP Usage Report는 별도의 회원가입 기능이 없으며, 사용량 조회를 위한 계정 생성을 원하시면 SPH 대표 문의 메일(helper@sphinfo.co.kr) 또는 포털로 문의를 주시면 계정을 생성해 안내 드리도록 하겠습니다.
+
+사용량 데이터는 UTC(협정 세계시) 기준으로 구글의 BIgQuery API를 통해 집계됩니다. 따라서 시차로 인해 에상되는 사용량과 다른 결과가 표시될 수 있습니다. 또한 BigQuery API 사용 설정일에 따라 조회 가능한 기간이 고객별로 다를 수도 있습니다.
+조회 가능한 기간은 계정 생성 메일을 참고하시거나 문의를 주시면 안내 드리도록 하겠습니다.
+보다 자세한 이용가이드는 아래와 같으며, 사용량 조회 메뉴의 'info' 버튼을 클릭하여도 확인하실 수 있습니다.
+1. 본 서비스의 데이터는 UTC(협정세계시) 기준으로 집계됩니다.
+2. 본 서비스의 데이터와 인보이스 데이터는 차이가 있을 수 있습니다. 이는 구글에서 인보이스 생성 작업 시 월초 또는 월말 사용량 일부가 이월되기 때문입니다.
+3. 사용량 집계에는 평군 1~2일 정도 소요되며, 일부 사용량은 뒤늦게집계될 수 있습니다. 따라서 본 서비스의 데이터는 조회 시점에 따라 일부 변경될 수 있습니다. 특히, 최근 1~2일 간 내의 사용량은 크게 변경될 수 있습니다.
+4. 2019년 11월 28일 이전 날짜는 조회기간으로 설정하실 수 없습니다. 또한, 사용량 집계를 설정하기 이전의 사용량은 모두 0으로 조회됩니다.
+5. 매월 초에는 전월 사용량에 대한 인보이스 생성 작업이 이루어집니다. 따라서 전월의 월간 사용량 조회는 당월 4~5일 이후에 하시는 것을 권장드립니다.",,
+5,Google Maps Platform,common,common,qps,,API QPS 상한선 조정은 어떻게 하나요?,"QPS 상한선은 API별로 상이합니다.
+구글맵을 사용하면서 QPS 초과 에러가 자주 발생한다면 해당 API의 QPS 상한선을 조정해야 합니다.
+
+QPS 상한선 조정을 하기 위해서는 아래의 정보가 필요합니다.
+- 상한선 조정이 일시적인 것인지 영구적인 것인지
+- 일시적인 것이라면 종료일은 언제인지
+- 상한선을 얼마나 늘릴 것인지
+
+만일 QPS 초과 에러가 일시적으로 발생한 것이고 상한 조정을 신청한 시기에 안정화가 되었다면 구글에서 QPS 상한선 조정을 거부할 수 있습니다. 또한 QPS는 어뷰징 방지를 위한 수단이기 때문에 과도하게 상한선을 늘릴 경우 어뷰징 공격에 취약해지는 점을 꼭 참고하세요.",,
+6,Google Maps Platform,common,common,,,OVER_QUERY_LIMIT 에러가 발생해요.,"OVER_QUERY_LIMIT 메시지는 해당 API 호출에서 QPS 초과 에러가발생했다는 뜻입니다. API 호출 건수가 짧은 시간에 갑작스럽게 증가할 경우 발생할 수 있습니다.
+- QPS란: 'Queries per second'의 약자로 1초 동안 호출할 수 있는 제한량을 의미
+
+QPS 초과 에러가 잘 발생하는 Geocoding API의 기본 QPS는 50으로, QPS 상한 조정을 하지 않는 이상 Geocoding API의 QPS는 최대 50까지 설정할 수 있습니다. 일시적인 호출 건수 증가 에러의 경우 호출 건수가 원래대로 돌아오면서 에러가 발생하지 않게 되지만, 만일 QPS 초과 에러가 자주 발생해 서비스 운영에 차질이 있다면 해당 API에 대한 QPS 증가 요청을 해야 합니다.
+
+QPS 상한 조정은 구글의 승인이 나기까지 오래 걸리기도 하며 신청 이유가 합당하지 않다면 구글에서 거부를 할 수가 있어 되도록 QPS 자체를 증가시키는 것보다 지수 백오프 알고리즘을 통해서 짧은 시간 내에 API를 너무 많이 호출하지 않도록 제어하는 것을 추천합니다.",,
+7,Google Maps Platform,common,common,billing,,You must enable Billing 에러가 발생해요.,"You must enable Billing on the Google Cloud Project' 메시지는 해당 API의 결제 관련 오류가 발생했다는 뜻입니다. 결제 계정이 만료 되었거나, 잘못된 카드 번호 입력 시 발생할 수 있습니다.
+
+해당 오류가 발생했다면 helper@sphinfo.co.kr을 통해 문의 부탁드립니다.",,
+8,Google Maps Platform,common,common,,,Zoom Level에 따른 Marker Clustering 기준을 지정할 수 있나요?,"Zoom Level에 따른 Clustering 기준 등 Marker Clustering의 기준을 사용하작 지정할 수 있는 기능은 제공하고 있지 않습니다.
+다만, MarkerCluster 객체의 속성 중 gridSize를 설정해서 Clustering할 영역의 크기(Grid Size)를 pixel 단위로 조정할 수 있습니다.
+
+```
+markerClusterer = new MarkerClusterer(map, markers, {
+    maxZoom: zoom,
+    gridSize: size,
+    styles: styles[style],
+    clusterClass: style === 3 ? ""custom-clustericon"" : undefined,
+});
+```
+
+github를 참고하시면 Marker Clustering의 예제 코드를 확인할 수 있습니다.",,
+9,Google Maps Platform,Maps,Maps Elevation api,"고도, 수심, elevation",,고도/수심을 구할 수 있나요?,"특정 좌표의 고도/수심은 Elevation API를 이용해서 구할 수 있습니다.
+Maps JavaScript API에서는 'google.maps.ElevationService'를 통해서 Elevation API를 사용할 수 있습니다.
+```
+var elevator = new google.maps.ElevationService;
+elevator.getElevationForLocations({
+    'locations': [{ lat: 36.112368, lng: 130.402206 }, // 동해 특정 좌표
+    { lat: 35.616249, lng: 129.391608 }] // 한반도 특정 좌표
+}, function (results, status) {
+    console.log(results);
+});
+```
+locations 값으로 여러 개의 좌표를 한 번에 넣어 해당 좌표의 고도를 구할 수 있습니다. 넣을 수 있는 장소 배열의 크기는 Elevation API 할당량 내에서 얼마든지 넣을 수 있습니다.
+Elevation API는 QPS 상한선 조정을 하지 않았다면 1초 당 최대 100개의 장소를 계산할 수 있습니다. 단, 여러 개의 장소에 대해 Elevation을 수행할 경우 단일 장소와 비교해서 퀄리티가 낮아질 수 있습니다.",,
+10,Google Maps Platform,Maps,Maps SDK for iOS/Android,"비용, billing",,"구글 맵 모바일 SDK를 사용할 때, map id를 사용하지 않고 json으로 지도 스타일을 지정하면 비용이 부과되나요?","Maps SDK를 사용하면서 Map ID를 포하하지 않을 경우 지도 호출을 위한 비용이 부과되지 않습니다.
+Maps SDK를 사용하면서 Map ID를 포함할 경우 지도 호출을 위한 비용이 부과됩니다.
+Maps SDK를 사용하면서 Map ID를 포함하지 않고, json으로 지도 스타일을 지정할 경우 비용이 부과되지 않습니다.
+
+Maps SDK 비용에 대한 자세한 내용은 이 문서를 참고하세요.",2023-04-12,2023-04-12
+11,Google Maps Platform,Maps,Maps SDK for iOS/Android,"SDK, 모바일",,Maps SDK를 사용함에 있어 권장되는 안드로이드 버전이 있을까요?,"권장되는 특정 안드로이드 버전은 없습니다. 다만, 구글의 모바일 OS 지원 정책에 따라 출시 6년 이내의 안드로이드 버전들을 지원합니다. 자세한 내용은 이 문서의 ""Android OS 지원 정책"" 부분을 참고하시기 바랍니다",2023-06-30,2023-06-30
+12,Google Maps Platform,Maps,Maps SDK for iOS/Android,"SDK, 모바일, 교통 정보, 레이어, 비용",,Maps SDK를 사용하면서 교통정보 표시 옵션 사용시 추가 비용이 있을까요?,"교통정보 레이어 사용을 위한 추가 비용은 없습니다. 다만, 모든 국가에서 교통정보가 제공되는 것은 아닙니다.
+이것에 대한 자세한 내용은 이 문서의 국가지역 사용 범위 중 교통정보 레이어 부분을 참고하세요.",2023-06-30,2023-06-30
+13,Google Maps Platform,Maps,Maps SDK for iOS/Android,"레이어, 산불, 공기질",,Maps SDK를 사용하면서 산불/공기질 옵션 사용시 추가적인 비용이 있을까요?,산불/공기질 레이어는 구글 맵스 플랫폼에서 제공되는 기능이 아닙니다.,2023-06-30,2023-06-30
+14,Google Maps Platform,Maps,Maps SDK for iOS/Android,"SDK, 모바일, 대중교통, 레이어",,모바일 SDK에서 Maps JavaScript API와 같이 대중교통 레이어를 보여줄 수는 없나요?,"모바일 SDK에는 대중교통 레이어 기능이 제공되지 않습니다. 다만, JSON으로 맵 스타일을 지정하여 토글하는 방식으로 구현할 수 있습니다. 혹은 모바일에서 직접 Maps JavaScript API를 호출하여 사용할 수도 있습니다.",,
+15,Google Maps Platform,common,common,"모바일, sdk, 배터리, 성능",,Maps SDK의 배터리 소모 속도를 알 수 있을까요?,"Maps SDK의 배터리 소모 속도에 대한 공식적인 자료는 없습니다.
+앱의 배터리 소모는 앱의 맞춤 기능, 최적화 정도 같은 다양한 요인에 따라 달라지기 때문입니다.
+
+앱 레벨에서 배터리를 소모하는 내부 프로세스를 구체적으로 측정하려면 Battery Historian 도구를 참고하세요.",,
+16,Google Maps Platform,Maps,Maps SDK for iOS/Android,"모바일, sdk, 지도, 성능, 시간",,모바일 디바이스에서 지도를 받기 위해 필요한 시간을 알 수 있을까요?,"지도 로드 시간과 관련하여 공식 문서에 정확한 시간이 게시되어 있지는 않습니다.
+하지만, 클라우드 콘솔의 측정항목 세션에서 이를 정확하게 모니터링하고 측정할 수 있습니다.
+
+아래의 주소에 프로젝트 아이디를 넣으면 Maps SDK의 대기 시간을 확인할 수 있습니다.
+https://console.cloud.google.com/google/maps-apis/metrics?project={project_id}
+
+응답 및 지도 로드 시간이 지속적으로 최적화되고 있지만 상당한 지연 및/또는 3,000ms 표시를 초과하는 응답(물론 사용자 측의 연결 문제와 관련 없음)은 즉시 구글 측에에 보고하여 조사할 수 있도록 해야 합니다.",,
+17,Google Maps Platform,Maps,Maps JavaScript api,"GroundOverlay, 지면 오버레이, 이미지, 매핑, 오버레이",,지도 위에 이미지를 매핑 시키고 싶은데 가능한가요?,"Maps JavaScript API의 지면 오버레이(GroundOverlay)를 이용하면 위경도 값으로 지도 위에 이미지를 매핑 시킬 수 있습니다.
+
+좀 더 자세한 내용이나 사용 예시는 이 문서를 참고하세요.",,
+,Google Maps Platform,,,,,,,,
+,Google Maps Platform,,,,,,,,
