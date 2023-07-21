@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node ./src/app.ts",
+    "1": "ts-node ./src/1.ts",
+    "2": "ts-node ./src/2.ts",
+    "3": "ts-node ./src/3.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -23,6 +25,7 @@
     "express": "^4.18.2",
     "faiss-node": "^0.2.2",
     "langchain": "^0.0.106",
-    "pdf-parse": "^1.1.1"
+    "pdf-parse": "^1.1.1",
+    "puppeteer": "^20.9.0"
   }
 }
