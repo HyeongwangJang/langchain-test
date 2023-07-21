@@ -22,32 +22,13 @@ import PROMPT_TEMPLATE from "./lib/prompt";
   dotenv.config();
 
   // 0. 질문
-  const query1 = "Maps JavaScript API는 어떻게 로드할 수 있나요?"
-  const query2 = "지도에 마커를 추가하고 싶어요."
-  const query3 = "오해원이 누구인가요?"
+  const query1 = "사용량 조회는 어떻게 하나요?"
+  const query2 = "데이터를 캐싱할 수 있나요?"
+  const query3 = "캐싱 가능한 데이터는 무엇인가요?"
+  const query4 = "Maps JavaScript API 버전 3.54에서는 Array.from()이 사용되나요?"
+  const query5 = "오해원이 누구인가요?"
 
-  // 1. 데이터 불러오기
-  // 웹 문서 사용하는 경우
-  // const loader = new PuppeteerWebBaseLoader("https://developers.google.com/maps/documentation/javascript/load-maps-js-api?hl=ko");
-  // const docs = await loader.load();
-
-  // 2. Embedding
-  console.log("Create embeddings...")
-  // const embeddings = new HuggingFaceInferenceEmbeddings({
-  //   apiKey: process.env.HUGGINGFACE_API_KEY,
-  // });
-
-  // 3. vector db 생성
-  console.log("Create vector store...")
-  // const vectorStore = await FaissStore.fromDocuments(docs, embeddings);
-
-  // 3-1. Similarity search
-  // console.log("Similarity search...")
-  // docs = await vectorStore.similaritySearch(query3);
-  // console.log('docs', docs)
-
-  // 4. 모델 불러오기
-  // HF 모델 무료 사용은 토큰 사이즈 제약으로 에러 발생
+  // 1. 모델 불러오기
   // OpenAI 사용량 한도 설정 후 사용
   console.log("Load model...")
   console.log("Use OpenAI model...")
@@ -58,7 +39,7 @@ import PROMPT_TEMPLATE from "./lib/prompt";
     maxRetries: 1,
   })
 
-  // 5. 프롬프트 생성
+  // 2. 프롬프트 생성
   console.log("Create prompt");
   const template = PROMPT_TEMPLATE.withoutDocuments;
   const prompt = new PromptTemplate({
@@ -66,13 +47,17 @@ import PROMPT_TEMPLATE from "./lib/prompt";
     inputVariables: ["question"],
   });
 
+  // 3. 체인 생성
   console.log("Create chain...");
   const chain = new LLMChain({ llm: model, prompt });
 
+  // 4. 질문
   console.log("Send query...");
   const q1 = await chain.call({ question: query1 })
   const q2 = await chain.call({ question: query2 })
   const q3 = await chain.call({ question: query3 })
+  const q4 = await chain.call({ question: query4 })
+  const q5 = await chain.call({ question: query5 })
 
   console.log('[질문1]', query1)
   console.log("[답변1]", q1);
@@ -82,5 +67,11 @@ import PROMPT_TEMPLATE from "./lib/prompt";
   console.log("----------")
   console.log('[질문3]', query3)
   console.log("[답변3]", q3);
+  console.log("----------")
+  console.log('[질문4]', query4)
+  console.log("[답변4]", q4);
+  console.log("----------")
+  console.log('[질문5]', query5)
+  console.log("[답변5]", q5);
   console.log("----------")
 })()
