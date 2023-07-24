@@ -26,7 +26,9 @@ import PROMPT_TEMPLATE from "./lib/prompt";
   const query2 = "데이터를 캐싱할 수 있나요?"
   const query3 = "캐싱 가능한 데이터는 무엇인가요?"
   const query4 = "Maps JavaScript API 버전 3.54에서는 Array.from()이 사용되나요?"
-  const query5 = "오해원이 누구인가요?"
+  // const query5 = "Maps JavaScript API는 어떻게 로드할 수 있나요?"
+  // const query6 = "지도에 마커를 추가하고 싶어요."
+  // const query7 = "오해원이 누구인가요?"
 
   // 1. 모델 불러오기
   // OpenAI 사용량 한도 설정 후 사용
@@ -57,7 +59,7 @@ import PROMPT_TEMPLATE from "./lib/prompt";
   const q2 = await chain.call({ question: query2 })
   const q3 = await chain.call({ question: query3 })
   const q4 = await chain.call({ question: query4 })
-  const q5 = await chain.call({ question: query5 })
+  // const q5 = await chain.call({ question: query5 })
 
   console.log('[질문1]', query1)
   console.log("[답변1]", q1);
@@ -71,7 +73,7 @@ import PROMPT_TEMPLATE from "./lib/prompt";
   console.log('[질문4]', query4)
   console.log("[답변4]", q4);
   console.log("----------")
-  console.log('[질문5]', query5)
-  console.log("[답변5]", q5);
+  // console.log('[질문5]', query5)
+  // console.log("[답변5]", q5);
   console.log("----------")
 })()

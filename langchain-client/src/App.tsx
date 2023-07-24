@@ -15,7 +15,7 @@ function App() {
       ...history,
       {
         question: question,
-        answer: res.data.output_text,
+        answer: res.data.text,
       }
     ])
   }

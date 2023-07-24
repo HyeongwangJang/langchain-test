@@ -6,6 +6,7 @@ import { OpenAI } from "langchain/llms/openai"
 import { HuggingFaceInference } from "langchain/llms/hf"
 import { PromptTemplate } from "langchain/prompts";
 import { RetrievalQAChain, loadQARefineChain } from "langchain/chains";
+import PROMPT_TEMPLATE from "../prompt";
 
 /**
  * Doc loading - embedding - 벡터 스토어 생성 .... 과정을 매번 반복하고 있음.
@@ -16,61 +17,52 @@ async function callLangChain(question: string) {
   const loader = new DirectoryLoader(
     "public/data",
     {
-      ".pdf": (path) => new PDFLoader(path)
+      ".pdf": (path) => new PDFLoader(path),
+      // ".csv": (path) => new CSVLoader(path)
     }
   );
   let docs = await loader.load();
-  console.log('Doc length...', docs.length);
 
+  // 2. Embedding
   console.log("Create embeddings...")
   const embeddings = new HuggingFaceInferenceEmbeddings({
     apiKey: process.env.HUGGINGFACE_API_KEY,
   });
 
+  // 3. vector db 생성
   console.log("Create vector store...")
   const vectorStore = await FaissStore.fromDocuments(docs, embeddings);
 
-  console.log("Similarity search...");
-  docs = await vectorStore.similaritySearch(question)
+  // 3-1. Similarity search
+  // console.log("Similarity search...")
+  // docs = await vectorStore.similaritySearch(query3);
+  // console.log('docs', docs)
 
+  // 4. 모델 불러오기
+  // OpenAI 사용량 한도 설정 후 사용
   console.log("Load model...")
-  // console.log("Use HF model...")
-  // const model = new HuggingFaceInference({
-  //   model: "google/flan-t5-xxl",
-  //   apiKey: process.env.HUGGINGFACE_API_KEY,
-  //   temperature: 0.5,
-  //   maxRetries: 1,
-  // });
   console.log("Use OpenAI model...")
   const model = new OpenAI({
     modelName: "gpt-3.5-turbo",
     temperature: 0.5,
     openAIApiKey: process.env.OPENAI_API_KEY,
-    maxRetries: 1,  // 재시도 횟수. 기본값 7.
+    maxRetries: 1,
   })
 
-  // console.log("Create prompt/query...");
-  // const template = ""
-  //   + "Hello"
-  //   + "{context}"
-  //   + "Question: {question}"
-  // const prompt = new PromptTemplate({
-  //   template: template,
-  //   inputVariables: ["context", "question"],
-  // });
+  // 5. 프롬프트 생성
+  console.log("Create prompt");
+  const template = PROMPT_TEMPLATE.withDocuments
+  const prompt = new PromptTemplate({
+    template: template,
+    inputVariables: ["context", "question"],
+  });
 
+  // 6. 체인 생성
   console.log("Create chain...");
-  // console.log("Use RetrievalQAChain...")
-  // const chain = RetrievalQAChain.fromLLM(model, vectorStore.asRetriever());
+  const chain = RetrievalQAChain.fromLLM(model, vectorStore.asRetriever(), { prompt });
 
-  console.log("Use loadQARefineChain...")
-  const chain = loadQARefineChain(model);
-
-  console.log("Call chain & Send query....")
-  const res = await chain.call({
-    input_documents: docs,
-    question,
-  })
+  console.log("Send query...");
+  const res = await chain.call({ query: question })
 
   return res;
 }
